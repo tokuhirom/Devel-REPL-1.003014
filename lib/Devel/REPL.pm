@@ -7,9 +7,14 @@ use 5.008001; # backwards compat, doesn't warn like 5.8.1
 
 our $VERSION = '1.003014';
 
-with 'MooseX::Object::Pluggable';
-
 use Devel::REPL::Error;
+
+sub load_plugin {
+    my ($self, $plugin) = @_;
+    $plugin = "Devel::REPL::Plugin::$plugin";
+    eval "require $plugin; 1" or die $@;
+    $self->meta->add_role($plugin->meta);
+}
 
 has 'term' => (
   is => 'rw', required => 1,
@@ -363,10 +368,6 @@ the following:
 =item *
 
 L<Moose> >= 0.74
-
-=item *
-
-L<MooseX::Object::Pluggable> >= 0.0009
 
 =item *
 
