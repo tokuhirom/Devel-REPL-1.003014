@@ -1,6 +1,6 @@
 package Devel::REPL::Plugin::CompletionDriver::LexEnv;
 use Devel::REPL::Plugin;
-use namespace::autoclean;
+use namespace::sweep;
 
 sub BEFORE_PLUGIN {
     my $self = shift;
@@ -16,8 +16,8 @@ around complete => sub {
   return $orig->(@_)
     unless $last->isa('PPI::Token::Symbol');
 
-  my $sigil = substr($last, 0, 1, '');
-  my $re = qr/^\Q$last/;
+  my $sigil = substr($last, 0, 1);
+  my $re = qr/^\Q@{[ substr($last, 1) ]}/;
 
   return $orig->(@_),
          # ReadLine is weirdly inconsistent

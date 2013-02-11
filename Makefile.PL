@@ -13,14 +13,15 @@ requires 'File::Spec';
 requires 'Term::ReadLine';
 
 # rest
-requires 'Moose' => '0.93';
-requires 'MooseX::Getopt' => '0.18';
-requires 'namespace::autoclean';
+requires 'Moo' => '0';
+requires 'MooX::Types::MooseLike' => '0.19';
+requires 'namespace::sweep';
 requires 'File::HomeDir';
 requires 'Task::Weaken';
 requires 'B::Concise';
 requires 'Term::ANSIColor';
 requires 'Devel::Peek';
+requires 'Package::Stash';
 
 feature 'Completion plugin - extensible tab completion',
     -default => 1,
